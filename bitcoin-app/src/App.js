@@ -2,6 +2,8 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import PlayerTable from './PlayerTable';
+import Search from './Search';
 
 function App() {
   const [players, getPlayersData] = useState({});
@@ -18,15 +20,26 @@ function App() {
   // console.log(players);
 
   const arrayOfPlayers = Object.entries(players);
-  console.log(arrayOfPlayers.slice(0, 4));
+  const slicedPlayers = arrayOfPlayers.slice(0, 9);
+  // console.log(arrayOfPlayers.slice(0, 4));
   return (
-    <div className="App">
-      {arrayOfPlayers.slice(0, 9).map((player) => (
-        <ul>
-          <li>{`${player[1].first_name} ${player[1].last_name}`}</li>
-        </ul>
-      ))}
-    </div>
+    <>
+      <div className="app-header">NFL Player Stats</div>
+      <Search />
+      <div className="App">
+        <table className="player-table">
+          <tr>
+            <th className="row">First Name</th>
+            <th className="row">Last Name</th>
+            <th className="row">Position </th>
+            <th className="row">Status </th>
+          </tr>
+          {slicedPlayers.map((player) => (
+            <PlayerTable player={player} />
+          ))}
+        </table>
+      </div>
+    </>
   );
 }
 
